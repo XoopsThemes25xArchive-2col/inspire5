@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<{$xoops_langcode}>" lang="<{$xoops_langcode}>">
+<head>
+
+<!-- Meta Tags -->
+<meta name="Description" content="<{$xoops_meta_description}>" />
+<meta http-equiv="content-type" content="text/html; charset=<{$xoops_charset}>" />
+<meta http-equiv="content-language" content="<{$xoops_langcode}>" />
+<meta name="keywords" content="<{$xoops_pagetitle}>,<{$xoops_meta_keywords}>" />
+<meta name="rating" content="<{$xoops_meta_rating}>" />
+<meta name="author" content="<{$xoops_meta_author}>" />
+<meta name="copyright" content="<{$xoops_meta_copyright}>" />
+<meta name="generator" content="<{$smarty.const.META_GENER}>" />
+<meta name="robots" content="<{$xoops_meta_robots}>" />
+<meta name="revisit-after" content="<{$smarty.const.META_REV_AFT}>" />
+
+<!-- Styles/Relations -->
+<link rel="alternate" type="application/rss+xml" title="RSS" href="<{xoAppUrl backend.php}>" />
+<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl xoops.css}>" />
+<link rel="stylesheet" type="text/css" media="print"  href="<{xoImgUrl otherCss/print.css}>"/>
+<link rel="alternate stylesheet" type="text/css" media="screen" href="<{xoImgUrl otherCss/highcontrast.css}>" title="zoom" rev="zoom"/>
+<link rel="stylesheet" type="text/css" media="all" href="<{xoImgUrl reset.css}>" />
+<link rel="stylesheet" type="text/css" media="all" href="<{xoImgUrl text.css}>" />
+<link rel="stylesheet" type="text/css" media="all" href="<{xoImgUrl 960.css}>" />
+<link rel="stylesheet" type="text/css" media="screen" href="<{xoImgUrl style.css}>" title="default" />
+
+<!-- JS -->
+<{if isset($xoops_version) && ($xoops_version|lower|replace:" ":""|truncate:8:"" == "xoops2.4")}>
+<script type="text/javascript" src="<{xoAppUrl }>browse.php?Frameworks/jquery/jquery.js"></script>
+<{else }>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script> 
+<{/if}>
+
+<script src="http://cdn.jquerytools.org/1.1.2/tiny/jquery.tools.min.js"></script>
+
+<!--[if lt IE 8]>
+<script type="text/javascript" src="<{xoImgUrl js/IE8.js}>"></script>
+<![endif]-->
+
+<!-- Important! - Add specific code from modules -->
+<{$xoops_module_header}>
+
+<title><{$xoops_sitename}><{if $xoops_pagetitle !=''}> - <{$xoops_pagetitle}><{/if}></title>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+	<div id="navbar" class="container_12">
+		<div class="grid_9">
+			<ul id="nav">
+				<li><a href="<{xoAppUrl }>">Home</a></li>
+				<li><a href="<{xoAppUrl modules/wfchannel}>">About</a></li>
+				<li><a href="<{xoAppUrl modules/news}>">News</a></li>
+				<li><a href="<{xoAppUrl modules/newbb}>">Forum</a></li>
+				<li><a href="<{xoAppUrl modules/mediawiki}>">Wiki</a></li>
+				<li><a href="<{xoAppUrl modules/webphoto}>">Photo</a></li>
+				<li><a href="<{xoAppUrl modules/article}>">Article</a></li>
+				<li><a href="<{xoAppUrl modules/contact}>">Contact</a></li>
+			</ul>
+		</div>
+		<div class="grid_3">
+			<div id="search">
+				<form id="searchbox" action="<{xoAppUrl search.php}>" method="get">
+					<input type="text" id="search_input" name="query" />
+					<input id="search_button" type="submit" value="" />
+					<input type="hidden" name="action" value="results" />
+				</form>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div id="header_img" class="container_12">
+		<div id="logo" class="grid_2">
+		</div>
+	</div>
+
+	<{if $xoops_showcblock}>
+	<div class="container_12">
+		<div class="grid_12">
+			<div class="showcase">
+				<{foreach item=block from=$xoBlocks.page_topcenter}><div><{$block.content}></div><{/foreach}>
+			</div>
+			<div class="showcase_tab">
+			<div class="showcase_down"></div>
+			<ul id="sctab">
+				<{foreach item=block from=$xoBlocks.page_topcenter}><li><a href="#"><{$block.title}></a></li><{/foreach}>
+				<a class="last" <{if !$xoops_isuser}>href="<{xoAppUrl register.php}>"<{else}>href="<{xoAppUrl user.php}>"<{/if}>>hello <{if !$xoops_isuser}>guest<{else}><{$xoops_uname}><{/if}>!</a>
+			</ul>
+			<div class="clear"></div>
+			<script>
+				$(function() { 
+						$("ul#sctab").tabs("div.showcase > div" , {tabs: 'li'}); 
+				});
+			</script>	
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<{/if}>
+	
+	<div class="container_12">
+		<div class="grid_3">
+		<{foreach item=block from=$xoBlocks.canvas_left}>
+			<{if $block.title == ''}> <{* Useful for diplaying well blocks with no title *}>
+				<{$block.content}>
+			<{else}>
+				<h2><{$block.title}><{if $xoops_isadmin}> <a rel="external" href="<{xoAppUrl /modules/system/admin.php?fct=blocksadmin&op=edit&bid=}><{$block.id}>" title="Edit This Block" >(e)</a><{/if}></h2>
+				<{$block.content}>
+			<{/if}>
+		<{/foreach}>
+		</div>
+		
+
+		<div class="grid_9">
+		<{if $xoops_showcblock}>
+			<{foreach item=block from=$xoBlocks.page_bottomcenter}>
+				<{if $block.title == ''}> <{* Useful for diplaying well blocks with no title *}>
+					<{$block.content}>
+				<{else}>
+					<h2><{$block.title}></h2>
+					<{$block.content}>
+				<{/if}>
+			<{/foreach}>
+		<{/if}>
+		<{if $xoops_contents && ($xoops_contents != ' ') }><{$xoops_contents}><{/if}>
+		</div>
+		<div class="clear"></div>
+			
+		<div class="grid_12">
+			<div class="footer">
+			<{$xoops_sitename}> | Powered by <a rel="external" href="http://xoops.org/"><strong>XOOPS</strong></a> | Inspire 5 - A Design of <a rel="external" href="http://insraq.com/"><strong>INSRAQ</strong></a> | <a href="#">Top</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+</body>
+</html>
